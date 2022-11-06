@@ -1,5 +1,6 @@
 import 'package:cosmopilot/mapSelector.dart';
 import 'package:flutter/material.dart';
+import 'graph.dart';
 import 'package:new_gradient_app_bar/new_gradient_app_bar.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
+        primarySwatch: Colors.red,
         secondaryHeaderColor: Colors.black,
         primarySwatch: Colors.green,
         scaffoldBackgroundColor: Colors.black,
