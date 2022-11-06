@@ -83,9 +83,7 @@ void convertToGraph(List<List<int>> data) {
         graph[curKey]?.addAll({neighbor : weight});              // right neighbor
       }
       if (j != 0) {             // ensure not at left edge of dataset
-        neighbor = curKey - 1;
-        weight = weightEval(curKey, neighbor);
-        graph[curKey]?.addAll({neighbor : weight});              // left neighbor
+        graph[curKey]?.addAll({curKey - 1 : 1});              // left neighbor
       }
       curKey++;
     }

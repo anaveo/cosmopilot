@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Cosmopilot',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
         secondaryHeaderColor: Colors.black,
         primarySwatch: Colors.green,
         scaffoldBackgroundColor: Colors.black,
-        textTheme: TextTheme(
+        textTheme: const TextTheme(
           headline1: TextStyle(color: Colors.white),
           headline2: TextStyle(color: Colors.white),
           headline3: TextStyle(color: Colors.white),
@@ -58,11 +59,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final pgController = PageController(initialPage: 1);
 
-  List<String> imageList = ['assets/images/Elysium_Planitia_1000x1000.png',
-    'assets/images/Gordi_Dorsum_1000x1000.png',
-    'assets/images/Iani_Chaos_1000x1000.png',
-    'assets/images/Lava_Channel_1000x1000.png',
-    'assets/images/Utopia_Planitia_1000x1000.png'
+  List<String> imageList = ['Elysium_Planitia',
+    'Gordi_Dorsum',
+    'Iani_Chaos',
+    'Lava_Channel',
+    'Utopia_Planitia'
   ];
 
   List<String> nameList = ['Elysium Planitia',
@@ -95,13 +96,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: SmoothPageIndicator(
                   controller: pgController,
                   count: imageList.length,
-                  effect: ScrollingDotsEffect(
+                  effect: const ScrollingDotsEffect(
                     dotHeight: 10,
                     dotWidth: 10,
                     spacing: 10,
                     activeDotColor: Colors.white,
-                    //type: WormType.normal,
-                    // strokeWidth: 5,
                   ),
                 ),
               )
@@ -124,14 +123,14 @@ class _MyHomePageState extends State<MyHomePage> {
                           Pilot(img: imageList[index]),
                     ));
               },
-              icon: Image.asset(imageList[index]),
+              icon: Image.asset('assets/images/${imageList[index]}_1000x1000.png'),
               splashRadius: 400,
             )),
         Padding(
-            padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
+            padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
             child: Column(
               children: <Widget> [
-                Text(nameList[index], style: TextStyle(fontSize: 32)),
+                Text(nameList[index], style: const TextStyle(fontSize: 32)),
                 const Text('Mars', style: TextStyle(fontSize: 20, height: 2))
               ],
             )
