@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         secondaryHeaderColor: Colors.black,
         primarySwatch: Colors.green,
         scaffoldBackgroundColor: Colors.black,
-        textTheme: TextTheme(
+        textTheme: const TextTheme(
           headline1: TextStyle(color: Colors.white),
           headline2: TextStyle(color: Colors.white),
           headline3: TextStyle(color: Colors.white),
@@ -95,13 +95,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: SmoothPageIndicator(
                   controller: pgController,
                   count: imageList.length,
-                  effect: ScrollingDotsEffect(
+                  effect: const ScrollingDotsEffect(
                     dotHeight: 10,
                     dotWidth: 10,
                     spacing: 10,
                     activeDotColor: Colors.white,
-                    //type: WormType.normal,
-                    // strokeWidth: 5,
                   ),
                 ),
               )
@@ -128,10 +126,10 @@ class _MyHomePageState extends State<MyHomePage> {
               splashRadius: 400,
             )),
         Padding(
-            padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
+            padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
             child: Column(
               children: <Widget> [
-                Text(nameList[index], style: TextStyle(fontSize: 32)),
+                Text(nameList[index], style: const TextStyle(fontSize: 32)),
                 const Text('Mars', style: TextStyle(fontSize: 20, height: 2))
               ],
             )
