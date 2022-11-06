@@ -5,7 +5,7 @@ import 'package:new_gradient_app_bar/new_gradient_app_bar.dart';
 class Pilot extends StatefulWidget {
   final String img;
 
-  Pilot({super.key, required this.img});
+  const Pilot({super.key, required this.img});
 
   @override
   State<Pilot> createState() => _PilotState();
@@ -13,9 +13,6 @@ class Pilot extends StatefulWidget {
 
 class _PilotState extends State<Pilot> {
 
-  void initState() {
-    super.initState();
-  }
   int initY = 0;
   int initX = 0;
 
@@ -84,19 +81,19 @@ class _PilotState extends State<Pilot> {
               )
             ]
           ),
-          SizedBox(height: 30),
-          Text('Starting Coordinate: (${initX.toString()}, ${initY.toString()})',
-            style: TextStyle(fontSize: 18)
+          const SizedBox(height: 30),
+          Text('Starting Coordinate: (${initX.toString()}, ${(-1*initY+ 40).toString()})',
+            style: const TextStyle(fontSize: 18)
           ),
-          SizedBox(height: 10),
-          Text('Ending Coordinate: (${endX.toString()}, ${endY.toString()})',
-            style: TextStyle(fontSize: 18)
+          const SizedBox(height: 10),
+          Text('Ending Coordinate: (${endX.toString()}, ${(-1*endY + 40).toString()})',
+            style: const TextStyle(fontSize: 18)
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Text('Total Distance: ${distance/1000} km',
-            style: TextStyle(fontSize: 18)
+            style: const TextStyle(fontSize: 18)
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget> [
@@ -107,8 +104,8 @@ class _PilotState extends State<Pilot> {
                     });
                   },
                   style: TextButton.styleFrom(
-                      fixedSize: Size(100, 40),
-                      shape: StadiumBorder(side: BorderSide(color: Colors.white))
+                      fixedSize: const Size(100, 40),
+                      shape: const StadiumBorder(side: BorderSide(color: Colors.white))
                   ),
                   child: const Text('Navigate')),
               TextButton(
@@ -125,8 +122,8 @@ class _PilotState extends State<Pilot> {
                     });
                   },
                   style: TextButton.styleFrom(
-                      fixedSize: Size(100, 40),
-                      shape: StadiumBorder(side: BorderSide(color: Colors.white))
+                      fixedSize: const Size(100, 40),
+                      shape: const StadiumBorder(side: BorderSide(color: Colors.white))
                   ),
                   child: const Text('Reset'))
             ],
