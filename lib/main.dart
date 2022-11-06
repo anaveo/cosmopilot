@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Cosmopilot',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -58,11 +59,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final pgController = PageController(initialPage: 1);
 
-  List<String> imageList = ['assets/images/Elysium_Planitia_1000x1000.png',
-    'assets/images/Gordi_Dorsum_1000x1000.png',
-    'assets/images/Iani_Chaos_1000x1000.png',
-    'assets/images/Lava_Channel_1000x1000.png',
-    'assets/images/Utopia_Planitia_1000x1000.png'
+  List<String> imageList = ['Elysium_Planitia',
+    'Gordi_Dorsum',
+    'Iani_Chaos',
+    'Lava_Channel',
+    'Utopia_Planitia'
   ];
 
   List<String> nameList = ['Elysium Planitia',
@@ -122,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           Pilot(img: imageList[index]),
                     ));
               },
-              icon: Image.asset(imageList[index]),
+              icon: Image.asset('assets/images/${imageList[index]}_1000x1000.png'),
               splashRadius: 400,
             )),
         Padding(

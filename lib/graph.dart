@@ -21,7 +21,9 @@ int weightEval(int node1, int node2) {
 
 void dataImport(String filename) {
   var fPath = path.join("assets/datafiles", filename);
+  print(fPath);
   File file = File(fPath);
+  print(file);
   var content = file.readAsLinesSync();
   for (int i = 0; i < content.length; i++){
     List<int> temp = List<int>.empty(growable:true);

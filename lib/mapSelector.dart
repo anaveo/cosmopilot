@@ -53,7 +53,7 @@ class _PilotState extends State<Pilot> {
                     distance = 0;
                   });
                 },
-                child: Image.asset(widget.img,
+                child: Image.asset('assets/images/${widget.img}_1000x1000.png',
                   fit: BoxFit.fitHeight,
                 ),
               ),
@@ -135,6 +135,9 @@ class _PilotState extends State<Pilot> {
   void createPath() {
     int start = 40 * initY + initX;
     int finish = 40 * endY + endX;
+    String dataFilePath = '${widget.img}.txt';
+
+    dataImport("Lava_Channel.txt");
     convertToGraph(terrain);
     List<dynamic> sp = dijkstras(graph, start, finish);
     List<List<int>> temp = [];
