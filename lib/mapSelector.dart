@@ -4,8 +4,9 @@ import 'package:new_gradient_app_bar/new_gradient_app_bar.dart';
 
 class Pilot extends StatefulWidget {
   final String img;
+  final int id;
 
-  const Pilot({super.key, required this.img});
+  const Pilot({super.key, required this.img, required this.id});
 
   @override
   State<Pilot> createState() => _PilotState();
@@ -132,12 +133,11 @@ class _PilotState extends State<Pilot> {
       ),
     );
   }
+
   void createPath() {
     int start = 40 * initY + initX;
     int finish = 40 * endY + endX;
-    String dataFilePath = '${widget.img}.txt';
-
-    dataImport("Lava_Channel.txt");
+    setData(widget.id);
     convertToGraph(terrain);
     List<dynamic> sp = dijkstras(graph, start, finish);
     List<List<int>> temp = [];

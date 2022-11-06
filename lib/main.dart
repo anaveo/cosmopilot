@@ -120,7 +120,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     context,
                     MaterialPageRoute(
                       builder: (context) =>
-                          Pilot(img: imageList[index]),
+                          Pilot(img: imageList[index], id: index),
                     ));
               },
               icon: Image.asset('assets/images/${imageList[index]}_1000x1000.png'),
