@@ -1,5 +1,4 @@
-import 'package:draw_graph/draw_graph.dart';
-import 'package:draw_graph/models/feature.dart';
+import 'graph.dart';
 import 'package:flutter/material.dart';
 import 'package:new_gradient_app_bar/new_gradient_app_bar.dart';
 
@@ -24,6 +23,8 @@ class _PilotState extends State<Pilot> {
   int endX = 0;
 
   bool initMarker = false;
+
+  int distance = 0;
 
   List<List<int>> samplePath = [];
 
@@ -51,41 +52,50 @@ class _PilotState extends State<Pilot> {
                       endX = v.localFocalPoint.dx ~/ 10;
                       endY = v.localFocalPoint.dy ~/ 10;
                     }
+                    samplePath = [];
+                    distance = 0;
                   });
                 },
                 child: Image.asset(widget.img,
                   fit: BoxFit.fitHeight,
                 ),
               ),
-              Positioned(
-                left: 10 * initX.toDouble(),
-                top: 10 * initY.toDouble(),
-                child: SizedBox(
-                  width: 50,
-                    child:Image.asset('assets/images/marker_1.png')
-                )
-            ),
-            Positioned(
-                left: 10 * endX.toDouble(),
-                top: 10 * endY.toDouble(),
-                child: SizedBox(
-                    width: 50,
-                    child:Image.asset('assets/images/marker_1.png')
-                )
-            ),
               for(int i = 0 ; i < samplePath.length ; i++)
                 Positioned(
                   left: 10 * samplePath[i][0].toDouble(),
                   top: 10 * samplePath[i][1].toDouble(),
-                  child: Icon(Icons.circle, size: 11.0, color: Colors.cyanAccent)
+                  child: const Icon(Icons.circle, size: 11.0, color: Colors.cyanAccent)
                 ),
-
-            ],
+              Positioned(
+                  left: 10 * initX.toDouble() - 20,
+                  top: 10 * initY.toDouble() - 40,
+                  child: SizedBox(
+                      width: 50,
+                      child:Image.asset('assets/images/marker_1.png')
+                  )
+              ),
+              Positioned(
+                  left: 10 * endX.toDouble() - 20,
+                  top: 10 * endY.toDouble() - 40,
+                  child: SizedBox(
+                      width: 50,
+                      child:Image.asset('assets/images/marker_1.png')
+                  )
+              )
+            ]
           ),
-          SizedBox(height: 20),
-          Text('Starting Coordinate: (${initX.toString()}, ${initY.toString()})'),
+          SizedBox(height: 30),
+          Text('Starting Coordinate: (${initX.toString()}, ${initY.toString()})',
+            style: TextStyle(fontSize: 18)
+          ),
           SizedBox(height: 10),
-          Text('Ending Coordinate: (${endX.toString()}, ${endY.toString()})'),
+          Text('Ending Coordinate: (${endX.toString()}, ${endY.toString()})',
+            style: TextStyle(fontSize: 18)
+          ),
+          SizedBox(height: 10),
+          Text('Total Distance: ${distance/1000} km',
+            style: TextStyle(fontSize: 18)
+          ),
           SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -110,6 +120,8 @@ class _PilotState extends State<Pilot> {
 
                       endY = 0;
                       endX = 0;
+                      distance = 0;
+                      samplePath = [];
                     });
                   },
                   style: TextButton.styleFrom(
@@ -124,9 +136,12 @@ class _PilotState extends State<Pilot> {
     );
   }
   void createPath() {
-    List<int> sp = [1276, 1236, 1196, 1156, 1116, 1076, 1036, 996, 956, 916, 876, 836, 796, 756, 716, 676, 636, 635, 634, 633, 632, 631, 630, 629, 589];
+    int start = 40 * initY + initX;
+    int finish = 40 * endY + endX;
+    convertToGraph(terrain);
+    List<dynamic> sp = dijkstras(graph, start, finish);
     List<List<int>> temp = [];
-    for (int node in sp) {
+    for (dynamic node in sp) {
       int x = node % 40;
       int y = node ~/ 40;
       List<int> t = [x, y];
@@ -135,6 +150,7 @@ class _PilotState extends State<Pilot> {
 
     setState(() {
       samplePath = temp;
+      distance = samplePath.length * 100;
     });
   }
 }

@@ -74,8 +74,8 @@ List<dynamic> dijkstras(Map<int, Map<int, int>> adjacency, int start, int finish
   return solutionArray;
 }
 
-int main() {
-  convertToGraph(terrain);
-  print(dijkstras(graph, 1276, 589));
-  return 0;
-}
+// int main() {
+//   convertToGraph(terrain);
+//   print(dijkstras(graph, 1276, 589));
+//   return 0;
+// }
