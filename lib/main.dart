@@ -9,23 +9,12 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Cosmopilot',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         secondaryHeaderColor: Colors.black,
         primarySwatch: Colors.green,
         scaffoldBackgroundColor: Colors.black,
@@ -56,17 +45,18 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   final pgController = PageController(initialPage: 1);
 
-  List<String> imageList = ['Elysium_Planitia',
+  List<String> imageList = [
+    'Elysium_Planitia',
     'Gordi_Dorsum',
     'Iani_Chaos',
     'Lava_Channel',
     'Utopia_Planitia'
   ];
 
-  List<String> nameList = ['Elysium Planitia',
+  List<String> nameList = [
+    'Elysium Planitia',
     'Gordi Dorsum',
     'Iani Chaos',
     'Lava Channel',
@@ -76,41 +66,41 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: NewGradientAppBar(gradient: const LinearGradient(colors:[Colors.deepPurple, Colors.cyan]),
+        appBar: NewGradientAppBar(
+          gradient:
+              const LinearGradient(colors: [Colors.deepPurple, Colors.cyan]),
           title: const Text('Choose a Map'),
         ),
-        body: Column(
-            children: <Widget>[
-              Expanded(flex: 9,
-                  child: PageView.builder(
-                      controller: pgController,
-                      physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-                      itemCount: imageList.length,
-                      itemBuilder: (context,index) {
-                        return mapImage(context, index);
-                      }
-                  )
-              ),
-              Expanded(
-                flex: 1,
-                child: SmoothPageIndicator(
+        body: Column(children: <Widget>[
+          Expanded(
+              flex: 9,
+              child: PageView.builder(
                   controller: pgController,
-                  count: imageList.length,
-                  effect: const ScrollingDotsEffect(
-                    dotHeight: 10,
-                    dotWidth: 10,
-                    spacing: 10,
-                    activeDotColor: Colors.white,
-                  ),
-                ),
-              )
-            ]
-        ));
+                  physics: const BouncingScrollPhysics(
+                      parent: AlwaysScrollableScrollPhysics()),
+                  itemCount: imageList.length,
+                  itemBuilder: (context, index) {
+                    return mapImage(context, index);
+                  })),
+          Expanded(
+            flex: 1,
+            child: SmoothPageIndicator(
+              controller: pgController,
+              count: imageList.length,
+              effect: const ScrollingDotsEffect(
+                dotHeight: 10,
+                dotWidth: 10,
+                spacing: 10,
+                activeDotColor: Colors.white,
+              ),
+            ),
+          )
+        ]));
   }
 
   Widget mapImage(BuildContext context, int index) {
     return Column(
-      children: <Widget> [
+      children: <Widget>[
         SizedBox(
             height: 400,
             width: 400,
@@ -123,18 +113,20 @@ class _MyHomePageState extends State<MyHomePage> {
                           Pilot(img: imageList[index], id: index),
                     ));
               },
-              icon: Image.asset('assets/images/${imageList[index]}_1000x1000.png'),
+              icon: Image.asset(
+                  'assets/images/${imageList[index]}_1000x1000.png'),
               splashRadius: 400,
             )),
         Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
+            padding:
+                const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
             child: Column(
-              children: <Widget> [
-                Text(nameList[index], style: const TextStyle(fontSize: 32)),
+              children: <Widget>[
+                Text(nameList[index].replaceAll('_', ' '),
+                    style: const TextStyle(fontSize: 32)),
                 const Text('Mars', style: TextStyle(fontSize: 20, height: 2))
               ],
-            )
-        )
+            ))
       ],
     );
   }

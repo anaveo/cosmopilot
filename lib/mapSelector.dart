@@ -2,6 +2,7 @@ import 'graph.dart';
 import 'package:flutter/material.dart';
 import 'package:new_gradient_app_bar/new_gradient_app_bar.dart';
 
+/// Main navigation page
 class Pilot extends StatefulWidget {
   final String img;
   final int id;
@@ -13,7 +14,6 @@ class Pilot extends StatefulWidget {
 }
 
 class _PilotState extends State<Pilot> {
-
   int initY = 0;
   int initX = 0;
 
@@ -29,75 +29,74 @@ class _PilotState extends State<Pilot> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: NewGradientAppBar(gradient: const LinearGradient(colors:[Colors.deepPurple, Colors.cyan]),
+      appBar: NewGradientAppBar(
+        gradient:
+            const LinearGradient(colors: [Colors.deepPurple, Colors.cyan]),
         title: const Text('Choose Location'),
       ),
       body: Column(
         children: [
-          Stack(
-            children: <Widget>[
-              InteractiveViewer(
-                panEnabled: false,
-                scaleEnabled: false,
-                onInteractionUpdate: (v) {
-                  setState((){
-                    if (!initMarker) {
-                      initMarker = true;
-                      initX = v.localFocalPoint.dx ~/ 10;
-                      initY = v.localFocalPoint.dy ~/ 10;
-                    }
-                    else {
-                      endX = v.localFocalPoint.dx ~/ 10;
-                      endY = v.localFocalPoint.dy ~/ 10;
-                    }
-                    samplePath = [];
-                    distance = 0;
-                  });
-                },
-                child: Image.asset('assets/images/${widget.img}_1000x1000.png',
-                  fit: BoxFit.fitHeight,
-                ),
+          Stack(children: <Widget>[
+            InteractiveViewer(
+              panEnabled: false,
+              scaleEnabled: false,
+              onInteractionUpdate: (v) {
+                setState(() {
+                  // Set start marker if not set
+                  if (!initMarker) {
+                    initMarker = true;
+                    initX = v.localFocalPoint.dx ~/ 10;
+                    initY = v.localFocalPoint.dy ~/ 10;
+                  }
+
+                  // Set destination marker if start is set
+                  else {
+                    endX = v.localFocalPoint.dx ~/ 10;
+                    endY = v.localFocalPoint.dy ~/ 10;
+                  }
+                  samplePath = [];
+                  distance = 0;
+                });
+              },
+              child: Image.asset(
+                'assets/images/${widget.img}_1000x1000.png',
+                fit: BoxFit.fitHeight,
               ),
-              for(int i = 0 ; i < samplePath.length ; i++)
-                Positioned(
+            ),
+            for (int i = 0; i < samplePath.length; i++)
+              Positioned(
                   left: 10 * samplePath[i][0].toDouble(),
                   top: 10 * samplePath[i][1].toDouble(),
-                  child: const Icon(Icons.circle, size: 11.0, color: Colors.cyanAccent)
-                ),
-              Positioned(
-                  left: 10 * initX.toDouble() - 20,
-                  top: 10 * initY.toDouble() - 40,
-                  child: SizedBox(
-                      width: 50,
-                      child:Image.asset('assets/images/marker_1.png')
-                  )
-              ),
-              Positioned(
-                  left: 10 * endX.toDouble() - 20,
-                  top: 10 * endY.toDouble() - 40,
-                  child: SizedBox(
-                      width: 50,
-                      child:Image.asset('assets/images/marker_1.png')
-                  )
-              )
-            ]
-          ),
+                  child: const Icon(Icons.circle,
+                      size: 11.0, color: Colors.cyanAccent)),
+            Positioned(
+                left: 10 * initX.toDouble() - 20,
+                top: 10 * initY.toDouble() - 40,
+                child: SizedBox(
+                    width: 50,
+                    child: Image.asset('assets/images/marker_1.png'))),
+            Positioned(
+                left: 10 * endX.toDouble() - 20,
+                top: 10 * endY.toDouble() - 40,
+                child: SizedBox(
+                    width: 50,
+                    child: Image.asset('assets/images/marker_1.png')))
+          ]),
           const SizedBox(height: 30),
-          Text('Starting Coordinate: (${initX.toString()}, ${(-1*initY+ 40).toString()})',
-            style: const TextStyle(fontSize: 18)
-          ),
+          Text(
+              'Starting Coordinate: (${initX.toString()}, ${(-1 * initY + 40).toString()})',
+              style: const TextStyle(fontSize: 18)),
           const SizedBox(height: 10),
-          Text('Ending Coordinate: (${endX.toString()}, ${(-1*endY + 40).toString()})',
-            style: const TextStyle(fontSize: 18)
-          ),
+          Text(
+              'Ending Coordinate: (${endX.toString()}, ${(-1 * endY + 40).toString()})',
+              style: const TextStyle(fontSize: 18)),
           const SizedBox(height: 10),
-          Text('Total Distance: ${distance/1000} km',
-            style: const TextStyle(fontSize: 18)
-          ),
+          Text('Total Distance: ${distance / 1000} km',
+              style: const TextStyle(fontSize: 18)),
           const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget> [
+            children: <Widget>[
               TextButton(
                   onPressed: () {
                     setState(() {
@@ -106,8 +105,8 @@ class _PilotState extends State<Pilot> {
                   },
                   style: TextButton.styleFrom(
                       fixedSize: const Size(100, 40),
-                      shape: const StadiumBorder(side: BorderSide(color: Colors.white))
-                  ),
+                      shape: const StadiumBorder(
+                          side: BorderSide(color: Colors.white))),
                   child: const Text('Navigate')),
               TextButton(
                   onPressed: () {
@@ -124,8 +123,8 @@ class _PilotState extends State<Pilot> {
                   },
                   style: TextButton.styleFrom(
                       fixedSize: const Size(100, 40),
-                      shape: const StadiumBorder(side: BorderSide(color: Colors.white))
-                  ),
+                      shape: const StadiumBorder(
+                          side: BorderSide(color: Colors.white))),
                   child: const Text('Reset'))
             ],
           )
@@ -134,6 +133,7 @@ class _PilotState extends State<Pilot> {
     );
   }
 
+  /// Create a shortest path using the Dijkstra's algorithm
   void createPath() {
     int start = 40 * initY + initX;
     int finish = 40 * endY + endX;
